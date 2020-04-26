@@ -1,7 +1,4 @@
-package entities;
-
-
-
+package entitiesForJDBC;
 public class Depense {
 	
 	
