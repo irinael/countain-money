@@ -13,5 +13,7 @@ public interface IDataAccess {
 
 	List<Lieu> getAllLieu() throws SQLException;
 	Lieu getLieuById(int id) throws SQLException;
+	
+	Lieu getLieuByName(String name) throws SQLException;
 
 }

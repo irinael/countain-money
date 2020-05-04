@@ -3,14 +3,13 @@ import javafx.scene.layout.BorderPane;
 
 @SuppressWarnings("restriction")
 public class FrontPage extends BorderPane {
-	
-	private DepenseForm form = new DepenseForm();
 	private DepenseListe list = new DepenseListe();
+	private DepenseForm form = new DepenseForm();
+
 
 	public FrontPage() {
-		this.setCenter(form);
 		this.setRight(list);
-		//list.setPrefWidth(400);
+		this.setCenter(form);	
 	}
 
 	public DepenseForm getDepenseForm() {
