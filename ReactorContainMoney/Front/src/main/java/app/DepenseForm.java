@@ -1,4 +1,5 @@
 package app;
+import java.awt.font.TextMeasurer;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -86,6 +87,7 @@ public class DepenseForm extends GridPane {
 		txtMontant.setMaxWidth(200);
 
 		txtMontant.textProperty().addListener((obs, old, newV) -> {
+			try {
 			if (!messageMontant.equals("")) messageMontant.setText("");
 			if (txtMontant.getText().matches("^[0-9\\.\\,]+$")) {
 				System.out.println("text" + txtMontant.getText());
@@ -94,7 +96,11 @@ public class DepenseForm extends GridPane {
 			}
 
 			if (!txtMontant.getText().equals("") && !txtMontant.getText().matches("^[0-9\\.\\,]+$")) messageMontant.setText("Rentre un chiffre enfin!");
-
+			}catch (NumberFormatException e) {
+				if (txtMontant.getText().contains(",")) {
+					txtMontant.setText(txtMontant.getText().replace(",", "."));
+				}
+			}
 		});
 
 
