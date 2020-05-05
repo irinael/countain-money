@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import jdbc.DaoJDBC;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 @SuppressWarnings("restriction")
 public class DepenseListe extends Pane {
@@ -77,20 +78,10 @@ public class DepenseListe extends Pane {
 			
 
 			this.getChildren().add(table);
-			this.setPrefWidth(400);
-			table.setPrefWidth(400);
-			table.setPrefHeight(460);
-//			depenses.addListener(new ListChangeListener<Depense>() {
-//
-//				@Override
-//				public void onChanged(Change<? extends Depense> c) {
-//					FrontPage root = (FrontPage)DepenseListe.this.getScene().getRoot();
-//					System.out.println(root.getDepenseForm().getTotalValue());
-//					root.getDepenseForm().getLblTotal().setText(root.getDepenseForm().countTotal().toString());
-//					System.out.println(root.getDepenseForm().getTotalValue());
-//					
-//				}
-//			});
+			this.setPrefWidth(450);
+			table.setPrefWidth(450);
+			table.setMinHeight(460);
+			table.prefHeightProperty().bind(new SimpleIntegerProperty(depenses.size()).multiply(table.getFixedCellSize()).add(30));
 
 		} catch (SQLException e) {
 
