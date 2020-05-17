@@ -126,18 +126,18 @@ public class DepenseForm extends GridPane {
 				@Override
 				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 					try {
-						if(messageLieu != null) messageLieu.setText("");
+						if(messageLieu.getText() != null) messageLieu.setText("");
 						if(cbLieux.getValue().equals(CB_LABEL)) {messageLieu.setText("Bah non, \"Où ça n'est pas un lieu, enfin !");}
 						depense.setIdLieu(dao.getLieuByName(cbLieux.getValue()).getId());
 					} catch (SQLException e) {
 
-						e.printStackTrace();
+						messageDate.setText("Un problème SQL!");
 					}
 				}
 			});
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			messageDate.setText("Un problème SQL!");
 		}
 
 
