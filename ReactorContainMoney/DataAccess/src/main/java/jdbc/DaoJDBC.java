@@ -30,6 +30,8 @@ public class DaoJDBC implements IDataAccess {
 	static final int SELECT_LIEU_BY_ID_INDEX = 1;
 	private static final int GET_LIEU_BY_NAME_INDEX = 1;
 	private static final String GET_LIEU_BY_NAME_QUERY = "SELECT id, nom FROM lieu WHERE lieu.nom=?";
+	private static final String GET_DEPENSE_BY_LIEU_QUERY = "SELECT id, montant, date, id_lieu FROM depense WHERE id_lieu=?";
+	private static final int GET_DEPENSE_BY_LIEU_QUERY_INDEX = 1;
 
 
 
@@ -124,6 +126,7 @@ public class DaoJDBC implements IDataAccess {
 				ps.setInt(SELECT_LIEU_BY_ID_INDEX, id);
 				try (ResultSet rs = ps.executeQuery()) {
 
+
 					while (rs.next()) {
 						lieu = new Lieu();
 						lieu.setId(rs.getInt("id"));
@@ -149,18 +152,51 @@ public class DaoJDBC implements IDataAccess {
 				ps.setString(GET_LIEU_BY_NAME_INDEX, name);
 				try (ResultSet rs = ps.executeQuery()) {
 
-				while (rs.next()) {
-					lieu = new Lieu();
-					lieu.setId(rs.getInt("id"));
-					lieu.setNom(rs.getString("nom"));
+					while (rs.next()) {
+						lieu = new Lieu();
+						lieu.setId(rs.getInt("id"));
+						lieu.setNom(rs.getString("nom"));
 
-				}}}
+					}}}
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		return lieu;
+	}
+
+	@Override
+	public List<Depense> getDepensesByLieu(Integer lieu) throws SQLException {
+		List<Depense> depenses = new ArrayList<Depense>();
+		try {
+			Class.forName(JDBC_DRIVER);
+
+			try(Connection con = DriverManager.getConnection(DB_URL, USER, PWD);PreparedStatement ps = con.prepareStatement(GET_DEPENSE_BY_LIEU_QUERY))
+			{
+				ps.setInt(GET_DEPENSE_BY_LIEU_QUERY_INDEX, lieu);
+				try (ResultSet rs = ps.executeQuery()) {
+
+					while (rs.next()) {
+						Depense depense = new Depense();
+						depense.setId(rs.getInt("id"));
+						depense.setMontant(Double.parseDouble(rs.getString("montant")));
+						depense.setIdLieu(rs.getInt("id_lieu"));
+						if (rs.getDate("date") != null) {
+							depense.setDate(rs.getDate("date").toLocalDate());
+						}
+						depenses.add(depense);
+						System.out.println(depenses.size());
+					}
+
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return depenses;
 	}
 }
 
