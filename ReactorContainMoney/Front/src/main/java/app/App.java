@@ -16,11 +16,13 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		System.out.println(Font.loadFont(app.App.class.getResourceAsStream("/Poppins-Light.otf"), 16));
+		System.out.println(Font.loadFont(app.App.class.getResourceAsStream("/Poppins-SemiBold.otf"), 20));
 		
-		System.out.println(Font.getFontNames("Poppins Light"));
+		System.out.println(Font.getFontNames("Poppins SemiBold"));
 		FrontPage fp = new FrontPage();
-		Scene s = new Scene(fp, 800, 400);
+		System.out.println(fp);
+		Scene s = new Scene(fp, 800, 460);
+		
 		
 		s.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
 		

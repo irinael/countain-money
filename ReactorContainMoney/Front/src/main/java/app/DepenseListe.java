@@ -1,12 +1,14 @@
 package app;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import DataAccessApi.IDataAccess;
 import entitiesForJDBC.Depense;
 import entitiesForJDBC.Lieu;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -24,10 +26,14 @@ public class DepenseListe extends Pane {
 	//private TableColumn<Depense, Integer> colId = new TableColumn<>("ID");
 	private TableColumn<Depense, Double> colMontant = new TableColumn<>("Montant");
 	private TableColumn<Depense, String> colLieu = new TableColumn<>("Lieu");
-	private TableColumn<Depense, LocalDate> colDate = new TableColumn<>("Date");
+	private TableColumn<Depense, String> colDate = new TableColumn<>("Date");
 
 	private ObservableList<Depense> depenses;
 	private IDataAccess dao = new DaoJDBC();
+	
+	private String dateFormatPattern = "dd/MM/yyyy";
+	private DateTimeFormatter myFormat = DateTimeFormatter.ofPattern(dateFormatPattern);
+	
 
 	public DepenseListe() {
 		try {
@@ -39,13 +45,12 @@ public class DepenseListe extends Pane {
 			
 			
 
-			//colId.setCellValueFactory(new PropertyValueFactory<Depense, Integer>("id"));
-
 			colMontant.setCellValueFactory(new PropertyValueFactory<Depense, Double>("montant"));
 			colMontant.setResizable(false);
 			colMontant.prefWidthProperty().bind(table.widthProperty().multiply(0.33));
-
-			colDate.setCellValueFactory(new PropertyValueFactory<Depense, LocalDate>("date"));
+			
+			
+			colDate.setCellValueFactory(new PropertyValueFactory<Depense, String>("date"));
 			colDate.setResizable(false);
 			colDate.prefWidthProperty().bind(table.widthProperty().multiply(0.33));
 
@@ -74,13 +79,25 @@ public class DepenseListe extends Pane {
 			this.getChildren().add(table);
 			this.setPrefWidth(400);
 			table.setPrefWidth(400);
-			
-			
+			table.setPrefHeight(460);
+//			depenses.addListener(new ListChangeListener<Depense>() {
+//
+//				@Override
+//				public void onChanged(Change<? extends Depense> c) {
+//					FrontPage root = (FrontPage)DepenseListe.this.getScene().getRoot();
+//					System.out.println(root.getDepenseForm().getTotalValue());
+//					root.getDepenseForm().getLblTotal().setText(root.getDepenseForm().countTotal().toString());
+//					System.out.println(root.getDepenseForm().getTotalValue());
+//					
+//				}
+//			});
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-
+		
+		
 
 
 
@@ -127,6 +144,66 @@ public class DepenseListe extends Pane {
 
 	public void setDao(IDataAccess dao) {
 		this.dao = dao;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public TableColumn<Depense, String> getColLieu() {
+		return colLieu;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setColLieu(TableColumn<Depense, String> colLieu) {
+		this.colLieu = colLieu;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public TableColumn<Depense, String> getColDate() {
+		return colDate;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setColDate(TableColumn<Depense, String> colDate) {
+		this.colDate = colDate;
 	}
 
 

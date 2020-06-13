@@ -28,6 +28,8 @@ public class DaoJDBC implements IDataAccess {
 	static final String GET_ALL_LIEU_QUERY = "SELECT id, nom FROM lieu";
 	static final String GET_LIEU_BY_ID_QUERY = "SELECT id, nom FROM lieu WHERE lieu.id=?";
 	static final int SELECT_LIEU_BY_ID_INDEX = 1;
+	private static final int GET_LIEU_BY_NAME_INDEX = 1;
+	private static final String GET_LIEU_BY_NAME_QUERY = "SELECT id, nom FROM lieu WHERE lieu.nom=?";
 
 
 	public Depense ajouterDepense(Depense depense) throws SQLException {
@@ -39,8 +41,10 @@ public class DaoJDBC implements IDataAccess {
 			Class.forName(JDBC_DRIVER);
 			con = DriverManager.getConnection(DB_URL, USER, PWD);
 			PreparedStatement s = con.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
-
+System.out.println("dans DAO " + depense.getMontant());
 			s.setDouble(INSERT_MONTANT_PARAM_INDEX, depense.getMontant());
+			
+			
 			s.setDate(INSERT_DATE_PARAM_INDEX, java.sql.Date.valueOf(depense.getDate()));
 			s.setDouble(INSERT_ID_LIEU_PARAM_INDEX, depense.getIdLieu());
 
@@ -69,7 +73,7 @@ public class DaoJDBC implements IDataAccess {
 			while (rs.next()) {
 				Depense dep = new Depense();
 				dep.setId(rs.getInt("id"));
-				dep.setMontant(rs.getInt("montant"));
+				dep.setMontant(rs.getDouble("montant"));
 				if (rs.getDate("date") != null) {
 					dep.setDate(rs.getDate("date").toLocalDate());}
 
@@ -130,6 +134,32 @@ public class DaoJDBC implements IDataAccess {
 			e.printStackTrace();
 		}
 
+		return lieu;
+	}
+
+	@Override
+	public Lieu getLieuByName(String name) throws SQLException {
+		Lieu lieu = new Lieu();
+		
+		Connection conn = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USER, PWD);
+			PreparedStatement ps = conn.prepareStatement(GET_LIEU_BY_NAME_QUERY);
+			ps.setString(GET_LIEU_BY_NAME_INDEX, name);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				lieu = new Lieu();
+				lieu.setId(rs.getInt("id"));
+				lieu.setNom(rs.getString("nom"));
+
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		
 		return lieu;
 	}
 }
