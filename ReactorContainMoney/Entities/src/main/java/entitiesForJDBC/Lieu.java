@@ -8,8 +8,6 @@ public class Lieu {
 	private String nom;
 
 	public Lieu() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Lieu(int id, String nom) {

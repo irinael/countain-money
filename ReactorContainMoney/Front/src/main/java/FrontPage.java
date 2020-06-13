@@ -11,5 +11,22 @@ public class FrontPage extends BorderPane {
 		this.setRight(list);
 	}
 
+	public DepenseForm getDepenseForm() {
+		return form;
+	}
+
+	public void setDepenseForm(DepenseForm form) {
+		this.form = form;
+	}
+
+	public DepenseListe getDepenseList() {
+		return list;
+	}
+
+	public void setDepenseList(DepenseListe list) {
+		this.list = list;
+	}
+
+	
 	
 }
