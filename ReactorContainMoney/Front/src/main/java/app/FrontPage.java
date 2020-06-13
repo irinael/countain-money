@@ -1,3 +1,4 @@
+package app;
 import javafx.scene.layout.BorderPane;
 
 @SuppressWarnings("restriction")
@@ -7,8 +8,9 @@ public class FrontPage extends BorderPane {
 	private DepenseListe list = new DepenseListe();
 
 	public FrontPage() {
-		this.setLeft(form);
+		this.setCenter(form);
 		this.setRight(list);
+		//list.setPrefWidth(400);
 	}
 
 	public DepenseForm getDepenseForm() {
