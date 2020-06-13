@@ -46,7 +46,7 @@ public class DepenseForm extends GridPane {
 	private String dateFormatPattern = "dd/MM/yyyy";
 	private DateTimeFormatter myFormat = DateTimeFormatter.ofPattern(dateFormatPattern);
 	private Double totalValue = 0.0;
-
+	
 	public DepenseForm() {
 
 		//ajout et agencement des éléments
@@ -141,6 +141,7 @@ public class DepenseForm extends GridPane {
 		}
 
 
+		
 
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -202,7 +203,7 @@ public class DepenseForm extends GridPane {
 		
 	}
 
-
+	
 	public Label getLblDepense() {
 		return lblDepense;
 	}
@@ -454,6 +455,6 @@ public class DepenseForm extends GridPane {
 	public static String getCbLabel() {
 		return CB_LABEL;
 	}
-
+	
 
 }

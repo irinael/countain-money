@@ -3,6 +3,7 @@ package app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -28,6 +29,7 @@ public class App extends Application {
 		
 		primaryStage.sizeToScene();
 		primaryStage.setTitle("Enjoy your confinement !");
+		primaryStage.getIcons().add(new Image("/money-bag.png"));
 		primaryStage.setScene(s);
 		primaryStage.show();
 		
