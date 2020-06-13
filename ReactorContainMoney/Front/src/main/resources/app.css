@@ -3,3 +3,10 @@
     -fx-font-family: "Poppins SemiBold";
     
 }
+
+.table-row-cell:odd{
+	-fx-background-color:#80b3ff;
+}
+.table-row-cell:even{
+	-fx-background-color:#feb3ff;
+}

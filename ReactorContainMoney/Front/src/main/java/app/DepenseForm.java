@@ -184,12 +184,7 @@ public class DepenseForm extends GridPane {
 			}
 			display = display.replace('.', ',');
 			lblTotal.setText("Total : " + display + " euros");
-		
-//		
-//		String display = totalValue.toString();
-//		display = display.replace('.', ',');
-//		lblTotal.setText("Total : " + display + " euros");
-//		
+
 		
 	}
 
