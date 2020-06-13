@@ -1,6 +1,7 @@
 package app;
 import java.awt.font.TextMeasurer;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -177,16 +178,23 @@ public class DepenseForm extends GridPane {
 
 	public void countTotal() {
 		try {
+			totalValue=0.0;
 			for (Depense d : dao.getAllDepense()) {
+				
 				totalValue = totalValue + d.getMontant();	
+				
 			}
 		} catch (SQLException e1) {
 			messageMontant.setText("Quelque chose ne va pas avec ta requête, faut revoir ton code !");
 		}
+		System.out.println("totoal" + totalValue);
 		String display = totalValue.toString();
 		if ((totalValue - Math.floor(totalValue)) == 0.0) {
 			Math.round(totalValue);
 			display = Long.toString(Math.round(totalValue));
+			}
+		else {
+			display = new DecimalFormat("0.00").format(totalValue);
 			}
 			display = display.replace('.', ',');
 			lblTotal.setText("Total : " + display + " euros");
