@@ -1,12 +1,8 @@
-package entitiesForJDBC;
+package entitiesJDBC;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Depense {
-	
 	
 	private int id;
 	private double montant;
@@ -61,8 +57,7 @@ public class Depense {
 	}
 
 	public Depense() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 

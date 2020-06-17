@@ -1,0 +1,4 @@
+module Entities {
+	
+	exports entitiesJDBC;
+}

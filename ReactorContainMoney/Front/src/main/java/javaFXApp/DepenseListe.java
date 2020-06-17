@@ -1,14 +1,13 @@
-package app;
+package javaFXApp;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import DataAccessApi.IDataAccess;
-import entitiesForJDBC.Depense;
-import entitiesForJDBC.Lieu;
+import dataAccessApi.IDataAccess;
+import entitiesJDBC.Depense;
+import entitiesJDBC.Lieu;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -16,11 +15,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
-import jdbc.DaoJDBC;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import jdbcImpl.DaoJDBC;
 
-@SuppressWarnings("restriction")
 public class DepenseListe extends Pane {
 
 	private TableView<Depense> table = new TableView<Depense>();
@@ -31,10 +27,7 @@ public class DepenseListe extends Pane {
 
 	private ObservableList<Depense> depenses;
 	private IDataAccess dao = new DaoJDBC();
-	
-	private String dateFormatPattern = "dd/MM/yyyy";
-	private DateTimeFormatter myFormat = DateTimeFormatter.ofPattern(dateFormatPattern);
-	
+
 
 	public DepenseListe() {
 		try {
@@ -67,7 +60,7 @@ public class DepenseListe extends Pane {
 						lieu = dao.getLieuById(param.getValue().getIdLieu());
 
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 					return new SimpleStringProperty(lieu.getNom());

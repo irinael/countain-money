@@ -1,4 +1,4 @@
-package entitiesForJDBC;
+package entitiesJDBC;
 public class Lieu {
 	
 	

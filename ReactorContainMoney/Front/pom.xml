@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>irina.personal</groupId>
-		<artifactId>ContainMoney</artifactId>
+		<groupId>countain</groupId>
+		<artifactId>ContainModule</artifactId>
 		<version>1.0</version>
 	</parent>
 	<dependencies>
@@ -13,6 +13,19 @@
 			<artifactId>DataAccess</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+
+		<dependency>
+
+			<groupId>org.openjfx</groupId>
+
+			<artifactId>javafx-controls</artifactId>
+
+			<version>11-ea+19</version>
+
+		</dependency>
+
 	</dependencies>
+
+
 	<artifactId>Front</artifactId>
 </project>

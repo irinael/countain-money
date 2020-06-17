@@ -1,4 +1,4 @@
-package jdbc;
+package jdbcImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,9 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import DataAccessApi.IDataAccess;
-import entitiesForJDBC.Depense;
-import entitiesForJDBC.Lieu;
+import dataAccessApi.IDataAccess;
+import entitiesJDBC.Depense;
+import entitiesJDBC.Lieu;
 
 public class DaoJDBC implements IDataAccess {
 
@@ -50,7 +50,7 @@ public class DaoJDBC implements IDataAccess {
 				s.setDate(INSERT_DATE_PARAM_INDEX, java.sql.Date.valueOf(depense.getDate()));
 				s.setDouble(INSERT_ID_LIEU_PARAM_INDEX, depense.getIdLieu());
 
-				int insertedId = s.executeUpdate();
+				
 
 			}
 		} catch (ClassNotFoundException e) {
@@ -61,7 +61,7 @@ public class DaoJDBC implements IDataAccess {
 		return depense;
 	}
 
-	public List<Depense> getAllDepense() throws SQLException {
+	public final List<Depense> getAllDepense() throws SQLException {
 
 		List<Depense> depenses = new ArrayList<Depense>();
 		try {
@@ -93,7 +93,7 @@ public class DaoJDBC implements IDataAccess {
 
 
 	@Override
-	public List<Lieu> getAllLieu() throws SQLException {
+	public final List<Lieu> getAllLieu() throws SQLException {
 		List<Lieu> lieux = new ArrayList<Lieu>();
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -115,7 +115,7 @@ public class DaoJDBC implements IDataAccess {
 	}
 
 	@Override
-	public Lieu getLieuById(int id) throws SQLException {
+	public final Lieu getLieuById(final int id) throws SQLException {
 
 		Lieu lieu = new Lieu();
 
@@ -141,7 +141,7 @@ public class DaoJDBC implements IDataAccess {
 	}
 
 	@Override
-	public Lieu getLieuByName(String name) throws SQLException {
+	public final Lieu getLieuByName(final String name) throws SQLException {
 		Lieu lieu = new Lieu();
 
 		try {
@@ -167,7 +167,7 @@ public class DaoJDBC implements IDataAccess {
 	}
 
 	@Override
-	public List<Depense> getDepensesByLieu(Integer lieu) throws SQLException {
+	public final List<Depense> getDepensesByLieu(final Integer lieu) throws SQLException {
 		List<Depense> depenses = new ArrayList<Depense>();
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -192,7 +192,7 @@ public class DaoJDBC implements IDataAccess {
 				}
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

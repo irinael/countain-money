@@ -1,5 +1,4 @@
-package app;
-import java.awt.font.TextMeasurer;
+package javaFXApp;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -7,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import DataAccessApi.IDataAccess;
-import entitiesForJDBC.Depense;
-import entitiesForJDBC.Lieu;
+import dataAccessApi.IDataAccess;
+import entitiesJDBC.Depense;
+import entitiesJDBC.Lieu;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,9 +23,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import jdbc.DaoJDBC;
+import jdbcImpl.DaoJDBC;
 
-@SuppressWarnings("restriction")
 public class DepenseForm extends GridPane {
 
 	private static final String CB_LABEL = "Où ça ?";
@@ -41,12 +39,12 @@ public class DepenseForm extends GridPane {
 	private Label messageLieu = new Label();
 	private Label messageDate = new Label();
 	private Depense depense = new Depense();
-	private List<String> lieuxObservableList = new ArrayList<String>();;
+	private List<String> lieuxObservableList = new ArrayList<String>();
 	private ObservableList<String> lieuxStringsList ;
 	private String dateFormatPattern = "dd/MM/yyyy";
 	private DateTimeFormatter myFormat = DateTimeFormatter.ofPattern(dateFormatPattern);
 	private Double totalValue = 0.0;
-	
+
 	public DepenseForm() {
 
 		//ajout et agencement des éléments
@@ -89,14 +87,14 @@ public class DepenseForm extends GridPane {
 
 		txtMontant.textProperty().addListener((obs, old, newV) -> {
 			try {
-			if (!messageMontant.equals("")) messageMontant.setText("");
-			if (txtMontant.getText().matches("^[0-9\\.\\,]+$")) {
-				System.out.println("text" + txtMontant.getText());
-				depense.setMontant(Double.parseDouble(txtMontant.getText()));
-				System.out.println("dans dep form" + depense.getMontant());
-			}
+				if (!messageMontant.getText().equals("")) messageMontant.setText("");
+				if (txtMontant.getText().matches("^[0-9\\.\\,]+$")) {
+					System.out.println("text" + txtMontant.getText());
+					depense.setMontant(Double.parseDouble(txtMontant.getText()));
+					System.out.println("dans dep form" + depense.getMontant());
+				}
 
-			if (!txtMontant.getText().equals("") && !txtMontant.getText().matches("^[0-9\\.\\,]+$")) messageMontant.setText("Rentre un chiffre enfin!");
+				if (!txtMontant.getText().equals("") && !txtMontant.getText().matches("^[0-9\\.\\,]+$")) messageMontant.setText("Rentre un chiffre enfin!");
 			}catch (NumberFormatException e) {
 				if (txtMontant.getText().contains(",")) {
 					txtMontant.setText(txtMontant.getText().replace(",", "."));
@@ -126,7 +124,9 @@ public class DepenseForm extends GridPane {
 				@Override
 				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 					try {
-						if(messageLieu.getText() != null) messageLieu.setText("");
+						if(messageLieu.getText() != null) {
+							messageLieu.setText("");
+						}
 						if(cbLieux.getValue().equals(CB_LABEL)) {messageLieu.setText("Bah non, \"Où ça n'est pas un lieu, enfin !");}
 						depense.setIdLieu(dao.getLieuByName(cbLieux.getValue()).getId());
 					} catch (SQLException e) {
@@ -141,7 +141,7 @@ public class DepenseForm extends GridPane {
 		}
 
 
-		
+
 
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -151,12 +151,12 @@ public class DepenseForm extends GridPane {
 				try {
 
 					depense.setDate(dpDate.getValue());
-					
-					dao.ajouterDepense(depense);
+
+								
 					FrontPage root = (FrontPage)DepenseForm.this.getScene().getRoot();
-					
+
 					for(Depense d : dao.getAllDepense()) {System.out.println(d.getMontant());}
-					
+
 					root.getDepenseList().getTable().setItems(FXCollections.observableArrayList(dao.getAllDepense()));
 
 					txtMontant.clear();
@@ -181,9 +181,9 @@ public class DepenseForm extends GridPane {
 		try {
 			totalValue=0.0;
 			for (Depense d : dao.getAllDepense()) {
-				
+
 				totalValue = totalValue + d.getMontant();	
-				
+
 			}
 		} catch (SQLException e1) {
 			messageMontant.setText("Quelque chose ne va pas avec ta requête, faut revoir ton code !");
@@ -193,17 +193,17 @@ public class DepenseForm extends GridPane {
 		if ((totalValue - Math.floor(totalValue)) == 0.0) {
 			Math.round(totalValue);
 			display = Long.toString(Math.round(totalValue));
-			}
+		}
 		else {
 			display = new DecimalFormat("0.00").format(totalValue);
-			}
-			display = display.replace('.', ',');
-			lblTotal.setText("Total : " + display + " euros");
+		}
+		display = display.replace('.', ',');
+		lblTotal.setText("Total : " + display + " euros");
 
-		
+
 	}
 
-	
+
 	public Label getLblDepense() {
 		return lblDepense;
 	}
@@ -455,6 +455,6 @@ public class DepenseForm extends GridPane {
 	public static String getCbLabel() {
 		return CB_LABEL;
 	}
-	
+
 
 }

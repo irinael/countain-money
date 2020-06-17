@@ -1,10 +1,11 @@
-package DataAccessApi;
+package dataAccessApi;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import entitiesForJDBC.Depense;
-import entitiesForJDBC.Lieu;
+import entitiesJDBC.Depense;
+import entitiesJDBC.Lieu;
+
 
 public interface IDataAccess {
 	

@@ -1,19 +1,18 @@
-import org.junit.Test;
-
-import DataAccessApi.IDataAccess;
-import entitiesForJDBC.Depense;
-import jdbc.DaoJDBC;
-
-import java.sql.Date;
+package daoJDBC.test;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 import org.junit.Assert;
+import org.junit.Test;
+
+import dataAccessApi.IDataAccess;
+import entitiesJDBC.Depense;
+import jdbcImpl.DaoJDBC;
 
 
 public class TestGetAllDepenses {
 	private static IDataAccess dao = new DaoJDBC();
-	private static final int EXPECTED_NB_DEPENSES = 9;
+	private static final int EXPECTED_NB_DEPENSES = 8;
 	
 	@Test
 	public void testNbDepenses() {
